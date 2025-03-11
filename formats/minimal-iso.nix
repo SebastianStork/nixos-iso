@@ -7,6 +7,8 @@
 {
   imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
 
+  networking.hostName = "installer";
+
   formatAttr = "isoImage";
   fileExtension = ".iso";
 
