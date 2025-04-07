@@ -1,6 +1,6 @@
 {
   perSystem =
-    { pkgs, system, ... }:
+    { pkgs, ... }:
     {
       devShells.default = pkgs.mkShell {
         packages = [

@@ -22,16 +22,13 @@
 
   outputs =
     { flake-parts, ... }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      { inputs, ... }:
-      {
-        systems = [ "x86_64-linux" ];
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
 
-        imports = [
-          ./flake/dev-shells.nix
-          ./flake/formatter.nix
-          ./flake/image-generators.nix
-        ];
-      }
-    );
+      imports = [
+        ./flake/dev-shells.nix
+        ./flake/formatter.nix
+        ./flake/image-generators.nix
+      ];
+    };
 }
