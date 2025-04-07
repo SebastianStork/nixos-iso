@@ -7,6 +7,8 @@
 {
   imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix" ];
 
+  nix.settings.experimental-features = [ "pipe-operators" ];
+
   networking.hostName = "installer";
 
   formatAttr = "isoImage";
