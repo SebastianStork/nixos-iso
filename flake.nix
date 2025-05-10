@@ -25,10 +25,34 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
 
-      imports = [
-        ./flake/dev-shells.nix
-        ./flake/formatter.nix
-        ./flake/image-generators.nix
-      ];
+      perSystem =
+        { system, pkgs, ... }:
+        {
+          packages = {
+            iso = inputs.nixos-generators.nixosGenerate {
+              format = "install-iso";
+              inherit system;
+              specialArgs = { inherit inputs; };
+              modules = [ ./configuration.nix ];
+            };
+          };
+
+          devShells.default = pkgs.mkShell {
+            packages = [
+              pkgs.sops
+              pkgs.age
+            ];
+          };
+
+          formatter =
+            (inputs.treefmt-nix.lib.evalModule pkgs {
+              projectRootFile = "flake.nix";
+              programs = {
+                nixfmt.enable = true;
+                prettier.enable = true;
+                just.enable = true;
+              };
+            }).config.build.wrapper;
+        };
     };
 }
