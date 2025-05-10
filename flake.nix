@@ -35,6 +35,12 @@
               specialArgs = { inherit inputs; };
               modules = [ ./configuration.nix ];
             };
+            kexec = inputs.nixos-generators.nixosGenerate {
+              format = "kexec";
+              inherit system;
+              specialArgs = { inherit inputs; };
+              modules = [ ./configuration.nix ];
+            };
           };
 
           devShells.default = pkgs.mkShell {
